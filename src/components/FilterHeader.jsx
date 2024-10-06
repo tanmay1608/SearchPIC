@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { ChevronDownIcon } from "@heroicons/react/solid"; // Correct import
+import { ChevronDownIcon } from "@heroicons/react/solid"; 
 
-const FilterHeader = ({state}) => {
-  const [selectedOption, setSelectedOption] = useState("ALL");
+const FilterHeader = ({state,dispatch}) => {
+ 
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
   const options = ["ALL", "Landscape", "Portrait"];
 
   return (
-    <div className={` ${state.isCollided ? "max-h-0 p-0 opacity-0" : "max-h-40 p-2 opacity-100"} w-full flex justify-end border-b border-gray-200 transition-all duration-1000 ease-in-out `}>
+    <div className={` ${state.isCollided ? "max-h-0 p-0 opacity-0" : "max-h-40 p-2 opacity-100"} w-full flex justify-end border-b border-gray-200 transition-all duration-1000 ease-in-out mt-16`}>
 
         <div className="relative w-64 ">
       
@@ -19,7 +19,8 @@ const FilterHeader = ({state}) => {
        
         <div className="flex items-center">
           <span className="mr-2">📸</span> 
-          <span>{selectedOption}</span> 
+          <span className="font-normal mr-2 text-gray-400">Orientation</span>
+          <span className="font-semibold">{state.orientation}</span> 
         </div>
        
         <ChevronDownIcon
@@ -37,11 +38,11 @@ const FilterHeader = ({state}) => {
               <li
                 key={option}
                 onClick={() => {
-                  setSelectedOption(option);
+                  dispatch({type:"updateorientation",payload:option})
                   setDropdownOpen(false);
                 }}
                 className={`px-4 py-2 hover:bg-gray-100 cursor-pointer ${
-                  selectedOption === option ? "bg-gray-100 font-semibold" : ""
+                  state.orientation === option ? "bg-gray-100 font-semibold" : ""
                 }`}
               >
                 {option}
